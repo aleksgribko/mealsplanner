@@ -39,10 +39,13 @@ const styles = StyleSheet.create({
   homeIcon: { width: 14, height: 14 },
   buttonsWrap: {
     display: "flex",
+    position: "absolute",
+    top: 0,
     flexDirection: "row",
     justifyContent: "space-evenly",
     width: "100%",
     backgroundColor: "#cd0000",
+    zIndex: 5,
   },
   button: { padding: 14 },
   buttonText: { fontSize: 14, color: "white" },

@@ -16,15 +16,14 @@ export default Layout;
 
 const styles = StyleSheet.create({
   containerWrap: {
-    flex: 1,
+    display: "flex",
     backgroundColor: "#fff",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
+    minHeight: "100%",
   },
   containerMain: {
     width: "100%",
-    height: "100%",
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
