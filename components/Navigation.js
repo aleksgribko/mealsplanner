@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Navigation = ({ navigation }) => {
   return (
@@ -8,7 +9,7 @@ const Navigation = ({ navigation }) => {
         onPress={() => navigation.navigate("Welcome")}
         style={styles.button}
       >
-        <Text style={styles.buttonText}>H</Text>
+        <MaterialCommunityIcons name="food" size={24} color="white" />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -21,7 +22,7 @@ const Navigation = ({ navigation }) => {
         onPress={() => navigation.navigate("Planner")}
         style={styles.button}
       >
-        <Text style={styles.buttonText}>Week Planner</Text>
+        <Text style={styles.buttonText}>W+1 Planner</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.navigate("Recepies")}

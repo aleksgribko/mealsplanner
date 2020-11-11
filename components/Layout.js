@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     minHeight: "100%",
   },
   containerMain: {
+    minHeight: "100%",
     width: "100%",
     alignItems: "center",
     justifyContent: "center",

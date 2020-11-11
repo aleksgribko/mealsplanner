@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,12 +6,16 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Modal,
+  TouchableHighlight,
 } from "react-native";
 import Navigation from "./Navigation";
 import Layout from "./Layout";
-import * as Calendar from "expo-calendar";
+import RecepiesExpandable from "./RecepiesExpandable";
 
 const WeekPlanner = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <Layout navigation={navigation}>
       <ScrollView style={{ display: "flex", marginTop: 50, marginBottom: 80 }}>
@@ -40,7 +44,7 @@ const WeekPlanner = ({ navigation }) => {
                     <Text style={styles.mealText}>{meal}</Text>
                     <TouchableOpacity
                       onPress={() => {
-                        Alert.alert("You have started a new week!");
+                        setModalVisible(true);
                       }}
                       style={styles.buttonAdd}
                     >
@@ -54,6 +58,32 @@ const WeekPlanner = ({ navigation }) => {
           );
         })}
       </ScrollView>
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Pick a dish</Text>
+              <RecepiesExpandable />
+
+              <TouchableHighlight
+                style={styles.buttonClose}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Text style={styles.buttonAddText}>Hide Modal</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
+      </View>
     </Layout>
   );
 };
@@ -88,5 +118,42 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 5,
   },
+
   buttonAddText: { fontSize: 14, color: "#fff" },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    minWidth: 300,
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  buttonClose: {
+    backgroundColor: "#cd0000",
+    padding: 10,
+    margin: 5,
+    borderRadius: 5,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
 });

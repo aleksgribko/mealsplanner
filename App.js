@@ -14,10 +14,10 @@ import {
 import foodPic from "./assets/food.jpg";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import WelcomeScreen from "./WelcomeScreen";
-import ShoppingList from "./ShoppingList";
-import WeekPlanner from "./WeekPlanner";
-import Recepies from "./Recepies";
+import WelcomeScreen from "./components/WelcomeScreen";
+import ShoppingList from "./components/ShoppingList";
+import WeekPlanner from "./components/WeekPlanner";
+import Recepies from "./components/Recepies";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 // import Constants from "expo-constants";
@@ -76,6 +76,13 @@ export default function App() {
           },
         }}
       >
+         <Stack.Screen
+          name="Welcome"
+          component={WelcomeScreen}
+          options={{
+            title: "This week",
+          }}
+        />
         <Stack.Screen
           name="Shopping"
           component={ShoppingList}
@@ -83,13 +90,7 @@ export default function App() {
             title: "Shopping List",
           }}
         />
-        <Stack.Screen
-          name="Welcome"
-          component={WelcomeScreen}
-          options={{
-            title: "Welcome!",
-          }}
-        />
+       
         <Stack.Screen
           name="Planner"
           component={WeekPlanner}
