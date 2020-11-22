@@ -6,15 +6,19 @@ import {
   Alert,
   Image,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import foodPic from "../assets/food.jpg";
 import Navigation from "./Navigation";
 import Layout from "./Layout";
 import { abs } from "react-native-reanimated";
+import { AntDesign, MaterialIcons } from '@expo/vector-icons'; 
+import moment from 'moment'
 
 const WelcomeScreen = ({ navigation }) => {
   const d = new Date();
   const n = d.getDay();
+
 
   let dayOfTheWeek;
 
@@ -37,7 +41,7 @@ const WelcomeScreen = ({ navigation }) => {
     case 6:
       dayOfTheWeek = "Saturday";
       break;
-    case 7:
+    case 0:
       dayOfTheWeek = "Sunday";
       break;
     default:
@@ -53,8 +57,41 @@ const WelcomeScreen = ({ navigation }) => {
         </View>
       </View>
       <View style={styles.wrap_main}>
-        <Text style={styles.textMain}>Welcome to the food planner!</Text>
-        <Text style={styles.instructions}>
+        <Text style={styles.textMain}>
+          Hi, Sasha, this is what is planned for today
+        </Text>
+
+        <ScrollView
+          style={{ display: "flex", marginTop: 20, marginBottom: 20 }}
+        >
+          <View style={styles.cardDay}>
+            {["Breakfast", "Lunch", "Dinner"].map((meal, key) => {
+              return (
+                <View
+                  key={key}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={styles.mealTimeText}>{meal}</Text>
+                  <View style={styles.divider} />
+                  <View style={styles.dishCompleted}>
+                  <AntDesign name="checkcircleo" size={20} color="black" />
+                    <Text style={styles.mealText}>Omlet</Text>
+                  </View>
+                  <View style={styles.dishMissing}>
+                  <MaterialIcons name="error-outline" size={25} color="black" />
+                    <Text style={styles.mealText}>Lasania</Text>
+                  </View>
+                </View>
+              );
+            })}
+          </View>
+        </ScrollView>
+
+        {/* <Text style={styles.instructions}>
           Click Start a new week to clear the data
         </Text>
         <TouchableOpacity
@@ -64,7 +101,7 @@ const WelcomeScreen = ({ navigation }) => {
           style={styles.buttonStart}
         >
           <Text style={styles.buttonStartText}>Start a new week</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </Layout>
   );
@@ -81,14 +118,14 @@ const styles = StyleSheet.create({
     // height: 250,
     flex: 1,
     alignItems: "center",
-    flexDirection: 'column',
+    flexDirection: "column",
     justifyContent: "center",
   },
   imgFood: { position: "absolute", left: 0, width: "100%", height: 250 },
-  text_wrap: {backgroundColor: 'rgba(256, 256, 256, 0.8)', padding: 10},
+  text_wrap: { backgroundColor: "rgba(256, 256, 256, 0.8)", padding: 10 },
   week_text: {
     fontSize: 30,
-    color: "#cd0000"
+    color: "#cd0000",
   },
   instructions: {
     color: "#888",
@@ -101,4 +138,29 @@ const styles = StyleSheet.create({
   buttonStart: { backgroundColor: "#cd0000", padding: 20, borderRadius: 5 },
   buttonStartText: { fontSize: 20, color: "#fff" },
   wrap_main: { flex: 2 },
+  divider: {
+    width: 100,
+    borderTopColor: "whitesmoke",
+    borderStyle: "solid",
+    borderTopWidth: 2,
+    marginTop: 0,
+    marginBottom: 10,
+  },
+  mealTimeText: {
+    marginTop: 10,
+  },
+  dishCompleted: {
+    padding: 10,
+    backgroundColor: "#99ffbb",
+    width: 300,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  dishMissing: {
+    padding: 10,
+    backgroundColor: "#ff9999",
+    width: 300,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });

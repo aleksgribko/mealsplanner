@@ -22,7 +22,7 @@ const Navigation = ({ navigation }) => {
         onPress={() => navigation.navigate("Planner")}
         style={styles.button}
       >
-        <Text style={styles.buttonText}>W+1 Planner</Text>
+        <Text style={styles.buttonText}>D+7 Planner</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.navigate("Recepies")}

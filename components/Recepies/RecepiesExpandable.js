@@ -9,7 +9,7 @@ import {
   Platform,
   LayoutAnimation,
 } from "react-native";
-import { recepies, categories } from "../dummyData";
+import { recepies, categories } from "../../dummyData";
 
 const RecepiesExpandable = ({ addDish }) => {
   const [layoutHeight, setLayoutHeight] = useState(0);

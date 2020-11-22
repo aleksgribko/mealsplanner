@@ -7,10 +7,13 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-import Layout from "./Layout";
+import Layout from "../Layout";
 import RecepiesExpandable from "./RecepiesExpandable";
+import { connect } from 'react-redux'
 
-const Recepies = ({ navigation }) => {
+const Recepies = ({ navigation, recipes, mealTypes }) => {
+
+  console.log(recipes, mealTypes);
   return (
     <Layout navigation={navigation}>
       <ScrollView
@@ -46,7 +49,16 @@ const Recepies = ({ navigation }) => {
   );
 };
 
-export default Recepies;
+//   const mapDispatchToProps = { increment, decrement, reset }
+
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    recipes: state.recipes.recipes,
+    mealTypes: state.recipes.mealTypes
+  }
+}
+
+export default connect(mapStateToProps)(Recepies)
 
 const styles = StyleSheet.create({
   buttonAdd: {
