@@ -8,12 +8,10 @@ import {
   ScrollView,
 } from "react-native";
 import Layout from "../Layout";
-import RecepiesExpandable from "./RecepiesExpandable";
-import { connect } from 'react-redux'
+import RecipesExpandable from "./RecipesExpandable";
+import { connect } from "react-redux";
 
-const Recepies = ({ navigation, recipes, mealTypes }) => {
-
-  console.log(recipes, mealTypes);
+const Recipes = ({ navigation, recipes, mealTypes }) => {
   return (
     <Layout navigation={navigation}>
       <ScrollView
@@ -24,7 +22,7 @@ const Recepies = ({ navigation, recipes, mealTypes }) => {
           width: "100%",
         }}
       >
-        <RecepiesExpandable />
+        <RecipesExpandable />
 
         <View style={{ display: "flex", alignItems: "center", marginTop: 15 }}>
           <TouchableOpacity
@@ -33,7 +31,7 @@ const Recepies = ({ navigation, recipes, mealTypes }) => {
             }}
             style={styles.buttonAdd}
           >
-            <Text style={styles.buttonAddText}>Add new recepie</Text>
+            <Text style={styles.buttonAddText}>Add new recipe</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -54,11 +52,11 @@ const Recepies = ({ navigation, recipes, mealTypes }) => {
 const mapStateToProps = (state /*, ownProps*/) => {
   return {
     recipes: state.recipes.recipes,
-    mealTypes: state.recipes.mealTypes
-  }
-}
+    mealTypes: state.recipes.mealTypes,
+  };
+};
 
-export default connect(mapStateToProps)(Recepies)
+export default connect(mapStateToProps)(Recipes);
 
 const styles = StyleSheet.create({
   buttonAdd: {

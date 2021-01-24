@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 // import user from "../components/Login/Login.reducer";
-import recipes from './../components/Recepies/Recepies.reducer'
+// import recipes from "../components/Recipes/Recipes.reducer";
+import { globalReducers } from "./shared/reducers";
 
-export default combineReducers({ recipes });
+export default combineReducers({ globalReducers });

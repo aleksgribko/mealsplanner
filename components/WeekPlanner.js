@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import Navigation from "./Navigation";
 import Layout from "./Layout";
-import RecepiesExpandable from "./Recepies/RecepiesExpandable";
-import moment from 'moment'
+import RecipesExpandable from "./Recipes/RecipesExpandable";
+import moment from "moment";
 
 const WeekPlanner = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -22,16 +22,18 @@ const WeekPlanner = ({ navigation }) => {
       <ScrollView style={{ display: "flex", marginTop: 50, marginBottom: 80 }}>
         {[
           moment(),
-          moment().add(1, 'day'),
-          moment().add(2, 'day'),
-          moment().add(3, 'day'),
-          moment().add(4, 'day'),
-          moment().add(5, 'day'),
-          moment().add(6, 'day')
+          moment().add(1, "day"),
+          moment().add(2, "day"),
+          moment().add(3, "day"),
+          moment().add(4, "day"),
+          moment().add(5, "day"),
+          moment().add(6, "day"),
         ].map((day, key) => {
           return (
             <View key={key} style={styles.cardDay}>
-              <Text style={styles.dayTitle}>{day.format('dddd, DD.MM.YYYY')}</Text>
+              <Text style={styles.dayTitle}>
+                {day.format("dddd, DD.MM.YYYY")}
+              </Text>
               {["Breakfast", "Lunch", "Dinner"].map((meal, key) => {
                 return (
                   <View
@@ -71,7 +73,7 @@ const WeekPlanner = ({ navigation }) => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>Pick a dish</Text>
-              <RecepiesExpandable />
+              <RecipesExpandable />
 
               <TouchableHighlight
                 style={styles.buttonClose}

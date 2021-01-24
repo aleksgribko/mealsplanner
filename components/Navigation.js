@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Navigation = ({ navigation }) => {
+
   return (
     <View style={styles.buttonsWrap}>
       <TouchableOpacity

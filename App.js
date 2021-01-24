@@ -14,19 +14,18 @@ import {
 import foodPic from "./assets/food.jpg";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import WelcomeScreen from "./components/WelcomeScreen";
-import ShoppingList from "./components/ShoppingList";
-import WeekPlanner from "./components/WeekPlanner";
-import Recepies from "./components/Recepies/Recepies";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import { Provider } from "react-redux";
 import configureStore from "./redux/configureStore";
+import AuthNavigator from "./components/ScreenStacks/AuthNavigator";
+
 // import Constants from "expo-constants";
 
 const store = configureStore();
 
-const Stack = createStackNavigator();
+const MainStack = createStackNavigator();
+const AuthStack = createStackNavigator();
 
 export default function App() {
   const [state, setState] = useState({
@@ -47,9 +46,7 @@ export default function App() {
       Alert.alert("Failed to get push token for push notification!");
       return;
     }
-    console.log(finalStatus);
     let token = await Notifications.getExpoPushTokenAsync();
-    console.log(token);
     setState({ expoPushToken: token });
 
     if (Platform.OS === "android") {
@@ -66,51 +63,36 @@ export default function App() {
     registerForPushNotificationsAsync();
   }, []);
 
+  const user = null;
+
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Welcome"
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: "#cd0000",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-          }}
-        >
-          <Stack.Screen
-            name="Welcome"
-            component={WelcomeScreen}
-            options={{
-              title: "This week",
+        {user ? (
+          <MainStack.Navigator
+            screenOptions={{
+              headerShown: false,
             }}
-          />
-          <Stack.Screen
-            name="Shopping"
-            component={ShoppingList}
-            options={{
-              title: "Shopping List",
+          >
+            <MainStack.Screen
+              name="AuthScreen"
+              component={AuthNavigator}
+              // initialParams={{...props}}
+            />
+          </MainStack.Navigator>
+        ) : (
+          <AuthStack.Navigator
+            screenOptions={{
+              headerShown: false,
             }}
-          />
-
-          <Stack.Screen
-            name="Planner"
-            component={WeekPlanner}
-            options={{
-              title: "Week Planner",
-            }}
-          />
-          <Stack.Screen
-            name="Recepies"
-            component={Recepies}
-            options={{
-              title: "Recepies",
-            }}
-          />
-        </Stack.Navigator>
+          >
+            <AuthStack.Screen
+              name="AuthScreen"
+              component={AuthNavigator}
+              // initialParams={{...props}}
+            />
+          </AuthStack.Navigator>
+        )}
       </NavigationContainer>
     </Provider>
   );
