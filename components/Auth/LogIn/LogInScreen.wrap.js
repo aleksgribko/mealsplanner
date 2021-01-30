@@ -9,8 +9,7 @@ const LogInScreenWrap = ({ logInAction }) => {
   const [password, setPassword] = useState("");
 
   const handleLogIn = () => {
-    // logInAction(email, password);
-    console.log("clicked");
+    logInAction(email, password);
   };
 
   return (
@@ -25,7 +24,7 @@ const LogInScreenWrap = ({ logInAction }) => {
 };
 
 const actionCreators = {
-  logInAction: () => logIn(),
+  logInAction: logIn,
 };
 
 export default connect(null, actionCreators)(LogInScreenWrap);

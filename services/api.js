@@ -2,26 +2,25 @@
 import { getToken } from "./cookies";
 
 const config = {
-  apiUrl: "http://localhost:8080",
+  apiUrl: "https://5ed5e3df5605.ngrok.io",
 };
 
-console.log(config);
-
 const api = {
-  login: (body) => {
-    return body;
-    // try {
-    //   const res = await fetch(`http://localhost:8080/auth/signin`, {
-    //     method: "POST",
-    //     body: JSON.stringify(body),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   return res && res.ok ? await res.json() : false;
-    // } catch (err) {
-    //   console.error(err);
-    // }
+  login: async (body) => {
+    console.log("BODY", body);
+    try {
+      const res = await fetch(`${config.apiUrl}/auth/signin`, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      return res && res.ok ? await res.json() : false;
+    } catch (err) {
+      console.error(err);
+    }
   },
   // signup: async (body) => {
   //   try {

@@ -2,7 +2,7 @@ import {
   LOGIN_SUCCESS,
   SIGN_UP_SUCCESS,
   SIGN_OUT_SUCCESS,
-} from "./auth.actionstypes";
+} from "./auth.reducers";
 // import { SET_LOADING } from "../../redux/shared/types";
 import api from "../../services/api";
 
@@ -14,11 +14,12 @@ export const logIn = (email, password) => {
     // dispatch({ type: SET_LOADING, loading: true });
 
     try {
+      console.log("EMAIL", email, password);
       const res = await api.login({ email, password });
 
       if (res) {
         console.log(res);
-        dispatch({ type: LOGIN_SUCCESS, user: res });
+        dispatch(LOGIN_SUCCESS(res));
         // dispatch({ type: SET_LOADING, loading: false });
       } else {
         // dispatch({ type: SET_LOADING, loading: false });

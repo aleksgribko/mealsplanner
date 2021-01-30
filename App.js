@@ -12,20 +12,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import foodPic from "./assets/food.jpg";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import { Provider } from "react-redux";
 import configureStore from "./redux/configureStore";
-import AuthNavigator from "./components/ScreenStacks/AuthNavigator";
 
+import Navigator from "./navigator/Navigator";
 // import Constants from "expo-constants";
 
 const store = configureStore();
-
-const MainStack = createStackNavigator();
-const AuthStack = createStackNavigator();
 
 export default function App() {
   const [state, setState] = useState({
@@ -63,37 +58,9 @@ export default function App() {
     registerForPushNotificationsAsync();
   }, []);
 
-  const user = null;
-
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        {user ? (
-          <MainStack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <MainStack.Screen
-              name="AuthScreen"
-              component={AuthNavigator}
-              // initialParams={{...props}}
-            />
-          </MainStack.Navigator>
-        ) : (
-          <AuthStack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <AuthStack.Screen
-              name="AuthScreen"
-              component={AuthNavigator}
-              // initialParams={{...props}}
-            />
-          </AuthStack.Navigator>
-        )}
-      </NavigationContainer>
+      <Navigator />
     </Provider>
   );
 }

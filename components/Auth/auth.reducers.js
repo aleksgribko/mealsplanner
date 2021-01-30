@@ -1,34 +1,34 @@
-import {
-  LOGIN_SUCCESS,
-  SIGN_UP_SUCCESS,
-  SIGN_OUT_SUCCESS,
-} from './auth.actionstypes';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  //   token: token || null,
   user: null,
 };
 
-export function authentication(state = initialState, action) {
-  console.log(state, action);
-  switch (action.type) {
-    case LOGIN_SUCCESS:
-      return Object.assign({}, state, {
+const authenticationSlice = createSlice({
+  name: "authenticationReducer",
+  initialState,
+  reducers: {
+    LOGIN_SUCCESS(state, action) {
+      return {
         ...state,
-        user: action.user,
-      });
-
-    case SIGN_UP_SUCCESS:
-      return Object.assign({}, state, {
+        user: action.payload,
+      };
+    },
+    SIGN_UP_SUCCESS(state, action) {
+      return {
         ...state,
-        user: action.user,
-      });
-    case SIGN_OUT_SUCCESS:
-      return Object.assign({}, state, {
+        user: action.payload,
+      };
+    },
+    SIGN_OUT_SUCCESS(state) {
+      return {
         ...state,
         user: null,
-      });
-    default:
-      return state;
-  }
-}
+      };
+    },
+  },
+});
+
+export const { LOGIN_SUCCESS } = authenticationSlice.actions;
+// Reducer
+export default authenticationSlice.reducer;
