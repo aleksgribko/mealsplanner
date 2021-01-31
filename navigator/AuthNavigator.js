@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import AuthScreen from "../Auth/AuthenticationType/AuthScreen.wrap";
-import SignUpScreen from "../Auth/SignUp/SignUpScreen.wrap";
-import LogInScreen from "../Auth/LogIn/LogInScreen.wrap";
+import AuthScreen from "../components/Auth/AuthenticationType/AuthScreen.wrap";
+import SignUpScreen from "../components/Auth/SignUp/SignUpScreen.wrap";
+import LogInScreen from "../components/Auth/LogIn/LogInScreen.wrap";
 
 import { createStackNavigator } from "@react-navigation/stack";
 

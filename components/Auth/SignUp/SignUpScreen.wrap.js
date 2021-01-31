@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import SignUpScreen from "./SignUpScreen";
 import { connect } from "react-redux";
@@ -6,15 +6,26 @@ import { signUp } from "../auth.actions";
 
 const SignUpScreenWrap = ({ signUpAction }) => {
   const [userEntries, setUserEntries] = useState({
-    firstName: "",
-    userName: "",
+    name: "",
     email: "",
-    birthday: new Date(),
     password: "",
     confirmPassword: "",
   });
-  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+
   const [hasAllEntries, setHasAllEntries] = useState(false);
+
+  useEffect(() => {
+    if (
+      userEntries.name.length &&
+      userEntries.email.length &&
+      userEntries.password.length &&
+      userEntries.confirmPassword.length
+    ) {
+      setHasAllEntries(true);
+    } else {
+      setHasAllEntries(false);
+    }
+  }, [userEntries]);
 
   const handleChangeEntry = (data, type) => {
     setUserEntries({
@@ -31,10 +42,9 @@ const SignUpScreenWrap = ({ signUpAction }) => {
     <SignUpScreen
       handleChangeEntry={handleChangeEntry}
       userEntries={userEntries}
-      handleSignUp={handleSignUp}
+      signUpAction={signUpAction}
       hasAllEntries={hasAllEntries}
-      isDatePickerVisible={isDatePickerVisible}
-      setIsDatePickerVisible={setIsDatePickerVisible}
+      handleSignUp={handleSignUp}
     />
   );
 };

@@ -10,57 +10,61 @@ import {
   Vibration,
   Platform,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import foodPic from "./assets/food.jpg";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import { Provider } from "react-redux";
 import configureStore from "./redux/configureStore";
-
+import FlashMessage from "react-native-flash-message";
 import Navigator from "./navigator/Navigator";
 // import Constants from "expo-constants";
+import { colors } from "./globalStyle/variables";
 
 const store = configureStore();
 
 export default function App() {
-  const [state, setState] = useState({
-    expoPushToken: "",
-    notification: {},
-  });
+  // const [state, setState] = useState({
+  //   expoPushToken: "",
+  //   notification: {},
+  // });
 
-  const registerForPushNotificationsAsync = async () => {
-    const { status: existingStatus } = await Permissions.getAsync(
-      Permissions.NOTIFICATIONS
-    );
-    let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
-    }
-    if (finalStatus !== "granted") {
-      Alert.alert("Failed to get push token for push notification!");
-      return;
-    }
-    let token = await Notifications.getExpoPushTokenAsync();
-    setState({ expoPushToken: token });
+  // const registerForPushNotificationsAsync = async () => {
+  //   const { status: existingStatus } = await Permissions.getAsync(
+  //     Permissions.NOTIFICATIONS
+  //   );
+  //   let finalStatus = existingStatus;
+  //   if (existingStatus !== "granted") {
+  //     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  //     finalStatus = status;
+  //   }
+  //   if (finalStatus !== "granted") {
+  //     Alert.alert("Failed to get push token for push notification!");
+  //     return;
+  //   }
+  //   let token = await Notifications.getExpoPushTokenAsync();
+  //   setState({ expoPushToken: token });
 
-    if (Platform.OS === "android") {
-      Notifications.createChannelAndroidAsync("default", {
-        name: "default",
-        sound: true,
-        priority: "max",
-        vibrate: [0, 250, 250, 250],
-      });
-    }
-  };
+  //   if (Platform.OS === "android") {
+  //     Notifications.createChannelAndroidAsync("default", {
+  //       name: "default",
+  //       sound: true,
+  //       priority: "max",
+  //       vibrate: [0, 250, 250, 250],
+  //     });
+  //   }
+  // };
 
-  useEffect(() => {
-    registerForPushNotificationsAsync();
-  }, []);
+  // useEffect(() => {
+  //   registerForPushNotificationsAsync();
+  // }, []);
 
   return (
     <Provider store={store}>
+      <StatusBar backgroundColor={colors.color1} />
       <Navigator />
+      <FlashMessage position="top" />
     </Provider>
   );
 }

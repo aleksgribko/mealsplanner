@@ -1,19 +1,27 @@
-import React from "react";
-import { View, Text } from "react-native";
-import AuthNavigator from "../components/ScreenStacks/AuthNavigator";
-import MainNavigator from "../components/ScreenStacks/MainNavigator";
-
+import React, { useEffect } from "react";
+import AuthNavigator from "./AuthNavigator";
+import MainNavigator from "./MainNavigator";
+import { connect } from "react-redux";
 import { useSelector } from "react-redux";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  getActionFromState,
+  NavigationContainer,
+} from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { getFamily } from "../redux/shared/actions";
 
-const Navigator = () => {
+const Navigator = ({ getFamilyAction }) => {
   const user = useSelector((state) => state.authentication.user);
+  const family = useSelector((state) => state.globalReducers.family);
+
+  console.log(family);
+
+  useEffect(() => {
+    user && getFamilyAction(user.familyId);
+  }, [user]);
 
   const MainStack = createStackNavigator();
   const AuthStack = createStackNavigator();
-
-  console.log("USER", user);
 
   return (
     <NavigationContainer>
@@ -46,4 +54,8 @@ const Navigator = () => {
   );
 };
 
-export default Navigator;
+const actionCreators = {
+  getFamilyAction: getFamily,
+};
+
+export default connect(null, actionCreators)(Navigator);

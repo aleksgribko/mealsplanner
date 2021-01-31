@@ -8,17 +8,14 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import foodPic from "../assets/food.jpg";
-import Navigation from "./Navigation";
-import Layout from "./Layout";
+import foodPic from "../../assets/food.jpg";
 import { abs } from "react-native-reanimated";
-import { AntDesign, MaterialIcons } from '@expo/vector-icons'; 
-import moment from 'moment'
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import moment from "moment";
 
 const WelcomeScreen = ({ navigation }) => {
   const d = new Date();
   const n = d.getDay();
-
 
   let dayOfTheWeek;
 
@@ -49,7 +46,7 @@ const WelcomeScreen = ({ navigation }) => {
   }
 
   return (
-    <Layout navigation={navigation} style={styles.wrap}>
+    <View style={styles.wrap}>
       <View style={styles.img_wrap}>
         <Image source={foodPic} style={styles.imgFood} />
         <View style={styles.text_wrap}>
@@ -78,11 +75,15 @@ const WelcomeScreen = ({ navigation }) => {
                   <Text style={styles.mealTimeText}>{meal}</Text>
                   <View style={styles.divider} />
                   <View style={styles.dishCompleted}>
-                  <AntDesign name="checkcircleo" size={20} color="black" />
+                    <AntDesign name="checkcircleo" size={20} color="black" />
                     <Text style={styles.mealText}>Omlet</Text>
                   </View>
                   <View style={styles.dishMissing}>
-                  <MaterialIcons name="error-outline" size={25} color="black" />
+                    <MaterialIcons
+                      name="error-outline"
+                      size={25}
+                      color="black"
+                    />
                     <Text style={styles.mealText}>Lasania</Text>
                   </View>
                 </View>
@@ -103,7 +104,7 @@ const WelcomeScreen = ({ navigation }) => {
           <Text style={styles.buttonStartText}>Start a new week</Text>
         </TouchableOpacity> */}
       </View>
-    </Layout>
+    </View>
   );
 };
 

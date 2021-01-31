@@ -1,16 +1,16 @@
-import * as React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
-import {colors} from '../../globalStyle/variables';
+import * as React from "react";
+import { Text, TouchableOpacity } from "react-native";
+import { colors } from "../../globalStyle/variables";
 
 export default function ButtonGeneral({
   //   size,
   //   scale,
   //   disableShadow = false,
-  variant = 'default',
+  variant = "default",
   //   style,
   //   textStyle,
   onPress,
-  text = 'Button',
+  text = "Button",
   //   ...props
 }) {
   const buttonStyle = styles.variant[variant];
@@ -51,12 +51,12 @@ const styles = {
   variant: {
     default: {
       container: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       },
       text: {
-        textAlign: 'center',
+        textAlign: "center",
       },
     },
   },
@@ -64,7 +64,7 @@ const styles = {
     opacity: 0.6,
   },
   boxShadow: {
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -75,7 +75,7 @@ const styles = {
   },
 };
 
-const defaultStyle = styles.variant['default'];
+const defaultStyle = styles.variant["default"];
 
 // styles.variant['solid-dark'] = {
 //   container: {
@@ -106,14 +106,24 @@ const defaultStyle = styles.variant['default'];
 //   },
 // };
 
-styles.variant['solid'] = {
+styles.variant["solid"] = {
   container: {
     borderRadius: 33,
     paddingVertical: 12,
     paddingHorizontal: 16,
-    backgroundColor: colors.color2,
+    backgroundColor: colors.color1,
   },
-  text: {color: 'white'},
+  text: { color: "white" },
+};
+
+styles.variant["grey"] = {
+  container: {
+    borderRadius: 33,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    backgroundColor: "grey",
+  },
+  text: { color: "white" },
 };
 
 // styles.variant['ghost'] = {

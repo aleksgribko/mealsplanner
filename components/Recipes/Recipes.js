@@ -7,13 +7,12 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-import Layout from "../Layout";
 import RecipesExpandable from "./RecipesExpandable";
 import { connect } from "react-redux";
 
 const Recipes = ({ navigation, recipes, mealTypes }) => {
   return (
-    <Layout navigation={navigation}>
+    <View style={styles.wrap}>
       <ScrollView
         style={{
           display: "flex",
@@ -43,7 +42,7 @@ const Recipes = ({ navigation, recipes, mealTypes }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </Layout>
+    </View>
   );
 };
 
@@ -59,6 +58,9 @@ const mapStateToProps = (state /*, ownProps*/) => {
 export default connect(mapStateToProps)(Recipes);
 
 const styles = StyleSheet.create({
+  wrap: {
+    flex: 1,
+  },
   buttonAdd: {
     backgroundColor: "#cd0000",
     padding: 20,

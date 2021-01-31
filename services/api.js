@@ -2,7 +2,7 @@
 import { getToken } from "./cookies";
 
 const config = {
-  apiUrl: "https://5ed5e3df5605.ngrok.io",
+  apiUrl: "https://51b31f0519ea.ngrok.io",
 };
 
 const api = {
@@ -22,20 +22,52 @@ const api = {
       console.error(err);
     }
   },
-  // signup: async (body) => {
-  //   try {
-  //     const res = await fetch(`${config.apiUrl}/auth/signup`, {
-  //       method: "POST",
-  //       body: JSON.stringify(body),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     return res && res.ok ? await res.json() : false;
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // },
+  signup: async (body) => {
+    console.log("BODY", body);
+    try {
+      const res = await fetch(`${config.apiUrl}/auth/signup`, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      return res && res.ok ? await res.json() : false;
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  getFamily: async (familyId) => {
+    try {
+      const res = await fetch(`${config.apiUrl}/family/${familyId}`, {
+        method: "GET",
+        // body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      return res && res.ok ? await res.json() : false;
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  createFamily: async (body) => {
+    try {
+      const res = await fetch(`${config.apiUrl}/family`, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      return res && res.ok ? await res.json() : false;
+    } catch (err) {
+      console.error(err);
+    }
+  },
   // get: async (resource, oneResourceId = false, query, withAuth = false) => {
   //   try {
   //     let headers = {

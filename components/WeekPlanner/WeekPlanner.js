@@ -9,16 +9,14 @@ import {
   Modal,
   TouchableHighlight,
 } from "react-native";
-import Navigation from "./Navigation";
-import Layout from "./Layout";
-import RecipesExpandable from "./Recipes/RecipesExpandable";
+import RecipesExpandable from "../Recipes/RecipesExpandable";
 import moment from "moment";
 
 const WeekPlanner = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <Layout navigation={navigation}>
+    <View style={styles.wrap}>
       <ScrollView style={{ display: "flex", marginTop: 50, marginBottom: 80 }}>
         {[
           moment(),
@@ -87,13 +85,16 @@ const WeekPlanner = ({ navigation }) => {
           </View>
         </Modal>
       </View>
-    </Layout>
+    </View>
   );
 };
 
 export default WeekPlanner;
 
 const styles = StyleSheet.create({
+  wrap: {
+    flex: 1,
+  },
   cardDay: {
     flex: 1,
     minWidth: 300,

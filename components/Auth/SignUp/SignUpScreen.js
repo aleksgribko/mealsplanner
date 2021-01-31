@@ -15,11 +15,10 @@ const image = require("../../../assets/hello_background.jpg");
 
 const SignUpScreen = ({
   handleChangeEntry,
-  handleSignUp,
+  signUpAction,
   userEntries,
   hasAllEntries,
-  setIsDatePickerVisible,
-  isDatePickerVisible,
+  handleSignUp,
 }) => {
   return (
     <View style={styles.wrap}>
@@ -27,16 +26,10 @@ const SignUpScreen = ({
         <View style={styles.overlay}>
           <Text style={styles.title}>A few things about you</Text>
           <InputBox
-            info="First Name"
+            info="Name"
             variant={"grey"}
             value={userEntries.firstName}
-            onChangeText={(data) => handleChangeEntry(data, "firstName")}
-          />
-          <InputBox
-            info="User Name"
-            variant={"grey"}
-            value={userEntries.userName}
-            onChangeText={(data) => handleChangeEntry(data, "userName")}
+            onChangeText={(data) => handleChangeEntry(data, "name")}
           />
           <InputBox
             info="Email"
@@ -59,7 +52,7 @@ const SignUpScreen = ({
           />
           {/* TODO: disable button if !hasAllEntries */}
           <ButtonGeneral
-            variant={"solid"}
+            variant={hasAllEntries ? "solid" : "grey"}
             text="SIGN UP"
             onPress={handleSignUp}
           />

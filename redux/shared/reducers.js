@@ -1,24 +1,29 @@
-import { SET_LOADING, SET_NOTIFICATION } from "./types";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoading: false,
-  notification: null,
+  family: null,
 };
 
-export function globalReducers(state = initialState, action) {
-  switch (action.type) {
-    case SET_LOADING:
-      return Object.assign({}, state, {
+const globalSlice = createSlice({
+  name: "authenticationReducer",
+  initialState,
+  reducers: {
+    SET_LOADING(state, action) {
+      return {
         ...state,
-        isLoading: action.isLoading,
-      });
-    case SET_NOTIFICATION:
-      return Object.assign({}, state, {
-        ...state,
-        notification: action.notification,
-      });
+        isLoading: action.payload,
+      };
+    },
+  },
+  GET_FAMILY_SUCCESS(state, action) {
+    return {
+      ...state,
+      family: action.payload,
+    };
+  },
+});
 
-    default:
-      return state;
-  }
-}
+export const { SET_LOADING, GET_FAMILY_SUCCESS } = globalSlice.actions;
+// Reducer
+export default globalSlice.reducer;
