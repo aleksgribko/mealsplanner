@@ -4,17 +4,30 @@ import UserParameters from "./UserParameters";
 import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 import { createFamily } from "./parameters.actions";
+import { logOut } from "../Auth/auth.actions";
+import { getFamily } from "../../redux/shared/actions";
 
-const UserParametersWrap = ({ createFamilyAction }) => {
+const UserParametersWrap = ({
+  createFamilyAction,
+  logOutAction,
+  getFamilyAction,
+}) => {
   const [familyName, setFamilyName] = useState("");
   const user = useSelector((state) => state.authentication.user);
   const family = useSelector((state) => state.globalReducers.family);
 
-  console.log(user);
-  console.log(family);
+  if (!user) return <Text>Loading</Text>;
+  console.log("USER!!!!!!!!!!!!!!!!", user);
+  console.log("FAMILY", family);
 
   const handleCreateFamily = () => {
-    createFamilyAction(user.id, familyName);
+    const res = createFamilyAction(user.id, familyName);
+    console.log(res);
+    if (res) getFamilyAction(res.id);
+  };
+
+  const handleLogOut = () => {
+    logOutAction();
   };
 
   return (
@@ -24,12 +37,15 @@ const UserParametersWrap = ({ createFamilyAction }) => {
       setFamilyName={setFamilyName}
       familyName={familyName}
       handleCreateFamily={handleCreateFamily}
+      handleLogOut={handleLogOut}
     />
   );
 };
 
 const actionCreators = {
   createFamilyAction: createFamily,
+  logOutAction: logOut,
+  getFamilyAction: getFamily,
 };
 
 export default connect(null, actionCreators)(UserParametersWrap);

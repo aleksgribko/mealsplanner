@@ -1,9 +1,5 @@
-// import { config } from "../config/urls";
-import { getToken } from "./cookies";
-
-const config = {
-  apiUrl: "https://51b31f0519ea.ngrok.io",
-};
+import config from "../config/urls";
+import { getToken } from "./storage";
 
 const api = {
   login: async (body) => {
@@ -32,8 +28,7 @@ const api = {
           "Content-Type": "application/json",
         },
       });
-
-      return res && res.ok ? await res.json() : false;
+      return res;
     } catch (err) {
       console.error(err);
     }
@@ -47,6 +42,7 @@ const api = {
           "Content-Type": "application/json",
         },
       });
+      console.log("WHAT IS MY FAMILY!", familyId, res);
 
       return res && res.ok ? await res.json() : false;
     } catch (err) {
@@ -68,6 +64,23 @@ const api = {
       console.error(err);
     }
   },
+  // restoreSession: async (token) => {
+  //   try {
+  //     const res = await fetch(`${config.apiUrl}/auth/restore-session`, {
+  //       method: "GET",
+  //       body: JSON.stringify({ token }),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     return res && res.ok ? await res.json() : false;
+  //   } catch (err) {
+  //     console.error(err);
+  //     return false;
+  //   }
+  // },
+
   // get: async (resource, oneResourceId = false, query, withAuth = false) => {
   //   try {
   //     let headers = {

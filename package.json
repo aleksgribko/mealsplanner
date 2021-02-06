@@ -8,12 +8,16 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@babel/eslint-parser": "^7.12.13",
+    "@react-native-async-storage/async-storage": "^1.13.4",
     "@react-native-community/checkbox": "^0.5.7",
     "@react-native-community/masked-view": "0.1.6",
     "@react-navigation/bottom-tabs": "^5.11.7",
     "@react-navigation/native": "^5.5.1",
     "@react-navigation/stack": "^5.5.1",
     "@reduxjs/toolkit": "^1.5.0",
+    "eslint-config-airbnb-typescript-prettier": "^4.1.0",
+    "eslint-plugin-react-native": "^3.10.0",
     "expo": "~37.0.3",
     "expo-calendar": "^8.1.0",
     "expo-permissions": "~8.1.0",
@@ -35,7 +39,17 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
+    "babel-eslint": "^10.1.0",
     "babel-preset-expo": "~8.1.0",
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.2.1",
     "redux-devtools-extension": "^2.13.8"
   },
   "private": true

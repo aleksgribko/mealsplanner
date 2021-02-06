@@ -73,5 +73,7 @@ export default {
   },
   inputWrap: {
     padding: 15,
+    width: 300,
+    alignItems: "center",
   },
 };

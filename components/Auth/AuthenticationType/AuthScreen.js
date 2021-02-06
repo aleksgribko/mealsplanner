@@ -16,12 +16,12 @@ const AuthScreen = () => {
           <ButtonGeneral
             variant={"solid"}
             text="SIGN UP"
-            onPress={() => navigation.navigate("SignUpScreen")}
+            onPress={() => navigation.navigate("Sign Up")}
           />
           <ButtonGeneral
             variant={"solid"}
-            text="LOG IN"
-            onPress={() => navigation.navigate("LogInScreen")}
+            text="SIGN IN"
+            onPress={() => navigation.navigate("Sign In")}
           />
         </View>
       </ImageBackground>

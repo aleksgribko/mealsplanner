@@ -11,6 +11,8 @@ import styleSheet from "./style";
 import ButtonGeneral from "../../Shared/ButtonGeneral";
 import moment from "moment";
 
+const styles = StyleSheet.create(styleSheet);
+
 const image = require("../../../assets/hello_background.jpg");
 
 const SignUpScreen = ({
@@ -63,5 +65,3 @@ const SignUpScreen = ({
 };
 
 export default SignUpScreen;
-
-const styles = StyleSheet.create(styleSheet);

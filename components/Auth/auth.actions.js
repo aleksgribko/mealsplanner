@@ -4,6 +4,7 @@ import {
   SIGN_OUT_SUCCESS,
 } from "./auth.reducers";
 import { SET_LOADING } from "../../redux/shared/reducers";
+import { storeData, removeData } from "../../services/storage";
 import api from "../../services/api";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import SignUpForm from "../../entities/signUpFormClass";
@@ -13,23 +14,35 @@ import SignUpForm from "../../entities/signUpFormClass";
 
 export const logIn = (email, password) => {
   return async (dispatch) => {
-    // dispatch({ type: SET_LOADING, loading: true });
+    dispatch(SET_LOADING(true));
 
     try {
       const res = await api.login({ email, password });
 
-      if (res != false) {
+      if (res !== false) {
+        storeData("user", JSON.stringify(res));
+
         dispatch(LOGIN_SUCCESS(res));
         dispatch(SET_LOADING(false));
       } else {
         dispatch(SET_LOADING(false));
-        console.log("CANT");
+
+        showMessage({
+          message: "Can't log in",
+          type: "danger",
+        });
       }
 
       return res;
     } catch (error) {
       //   dispatch({type: LIST_LOAD_FAILURE, error});
       console.log("This error", error);
+      dispatch(SET_LOADING(false));
+      showMessage({
+        message: error,
+        type: "danger",
+      });
+      return false;
     }
   };
 };
@@ -46,6 +59,7 @@ export const signUp = (entries) => {
     );
 
     if (!dataOrError.ok) {
+      console.log(dataOrError);
       dispatch(SET_LOADING(false));
       return showMessage({
         message: dataOrError.errorMessage,
@@ -59,6 +73,8 @@ export const signUp = (entries) => {
           name: dataOrError.value.name,
         });
 
+        console.log(res);
+
         if (res) {
           dispatch(SET_LOADING(false));
           dispatch(SIGN_UP_SUCCESS(res));
@@ -70,7 +86,6 @@ export const signUp = (entries) => {
           });
         }
       } catch (error) {
-        console.log(error);
         dispatch(SET_LOADING(false));
         showMessage({
           message: "Can't sigh up3",
@@ -94,9 +109,23 @@ export const signUp = (entries) => {
   };
 };
 
+export const restoreSession = (user) => {
+  return async (dispatch) => {
+    dispatch(SET_LOADING(true));
+    try {
+      // const res = await api.restoreSession(token);
+      dispatch(LOGIN_SUCCESS(user));
+      dispatch(SET_LOADING(false));
+    } catch (error) {
+      console.log("Can't restore session");
+    }
+  };
+};
+
 export const logOut = () => {
   return async (dispatch) => {
-    dispatch({ type: SIGN_OUT_SUCCESS });
+    removeData("user");
+    dispatch(SIGN_OUT_SUCCESS());
     return true;
   };
 };

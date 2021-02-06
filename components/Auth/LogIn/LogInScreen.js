@@ -16,26 +16,25 @@ const LogInScreen = ({
     <View style={styles.wrap}>
       <ImageBackground source={image} style={styles.image}>
         <View style={styles.overlay}>
-          <Text>LogIn</Text>
-          <View style={styles.inputWrap}>
-            <InputBox
-              info="Email"
-              variant={"grey"}
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-            />
-            <InputBox
-              info="Password"
-              variant={"grey"}
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-            />
-            <ButtonGeneral
-              variant={"solid"}
-              text="LOG IN"
-              onPress={handleLogIn}
-            />
-          </View>
+          {/* <Text style={styles.title}>LogIn</Text> */}
+
+          <InputBox
+            info="Email"
+            variant={"grey"}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <InputBox
+            info="Password"
+            variant={"grey"}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
+          <ButtonGeneral
+            variant={"solid"}
+            text="LOG IN"
+            onPress={handleLogIn}
+          />
         </View>
       </ImageBackground>
     </View>
@@ -49,15 +48,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "column",
+    width: "100%",
   },
-  inputWrap: {
-    padding: 15,
+  title: {
+    padding: 20,
+    fontSize: 30,
   },
   image: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   overlay: {
     flex: 1,
@@ -65,5 +68,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(255,255,255,0.7)",
+    width: "100%",
   },
 });

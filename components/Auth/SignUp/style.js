@@ -2,6 +2,7 @@ export default {
   wrap: {
     flex: 1,
     flexDirection: "column",
+    alignItems: "center",
   },
   title: {
     color: "black",

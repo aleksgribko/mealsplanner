@@ -1,10 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
 import AuthScreen from "../components/Auth/AuthenticationType/AuthScreen.wrap";
 import SignUpScreen from "../components/Auth/SignUp/SignUpScreen.wrap";
 import LogInScreen from "../components/Auth/LogIn/LogInScreen.wrap";
-
-import { createStackNavigator } from "@react-navigation/stack";
 
 const RootStack = createStackNavigator();
 
@@ -12,7 +11,7 @@ const AuthNavigator = () => {
   return (
     <RootStack.Navigator
       // screenOptions={navigationStyles.stackScreenOptions}
-      initialRouteName={"AuthScreen"}
+      initialRouteName="AuthScreen"
     >
       <RootStack.Screen
         options={{
@@ -24,17 +23,17 @@ const AuthNavigator = () => {
       />
       <RootStack.Screen
         options={{
-          headerShown: false,
+          headerShown: true,
         }}
-        name="SignUpScreen"
+        name="Sign Up"
         component={SignUpScreen}
         // initialParams={{...props}}
       />
       <RootStack.Screen
         options={{
-          headerShown: false,
+          headerShown: true,
         }}
-        name="LogInScreen"
+        name="Sign In"
         component={LogInScreen}
         // initialParams={{...props}}
       />

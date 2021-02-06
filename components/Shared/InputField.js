@@ -5,44 +5,29 @@ import { Platform } from "react-native";
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function InputBox({
-  //   size,
-  //   scale,
-  //   disableShadow = true,
   variant = "default",
-  //   style,
-  //   textStyle,
-  // text,
   value,
   onChangeText,
   editable = true,
-  //   secret = false,
+
   info = "Info",
-  //   phoneNumber = false,
+
   ...props
 }) {
   const inputStyle = styles.variant[variant];
-  //   const shadow = !disableShadow ? styles.boxShadow : {};
-  //   const transform = scale ? { transform: [{ scale }] } : {};
-  //   const [hide, setHide] = React.useState(true);
 
   let _containerStyle = {
-    ...defaultStyle.container, // Default button style
-    ...inputStyle.container, // Variant style
-    // ...style, // User specific style
-    // ...shadow,
-    // ...transform,
+    ...defaultStyle.container,
+    ...inputStyle.container,
   };
   const _textStyle = {
     ...defaultStyle.text,
     ...inputStyle.text,
-    // ...textStyle,
-    // fontSize: size,
   };
 
   if (props.disabled) {
     _containerStyle = {
       ..._containerStyle,
-      //   ...styles.disabled,
     };
   }
 
@@ -62,15 +47,6 @@ export default function InputBox({
           autoCapitalize="none"
           {...props}
         />
-        {/* {secret ? (
-          <TouchableOpacity
-            style={{justifyContent: 'flex-end'}}
-            onPress={() => setHide(!hide)}>
-            <Icon size={24} color={inputStyle.eye.color} name={'eye'} />
-          </TouchableOpacity>
-        ) : (
-          <></>
-        )} */}
       </View>
     </>
   );
@@ -83,6 +59,7 @@ const styles = {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        paddingHorizontal: 20,
       },
       text: {
         textAlign: "center",
@@ -112,9 +89,10 @@ styles.variant["grey"] = {
     height: 40,
     borderRadius: 33,
     paddingHorizontal: 16,
+    marginHorizontal: 16,
     backgroundColor: Platform.OS === "ios" ? "rgb(255, 160, 160)" : "#00000011",
     color: colors.color1,
-    width: "100%",
+    // width: "100%",
     marginBottom: 20,
     flexDirection: "row",
   },

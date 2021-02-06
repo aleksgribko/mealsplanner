@@ -9,16 +9,30 @@ import {
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFamily } from "../redux/shared/actions";
+import { restoreSession } from "../components/Auth/auth.actions";
+import Loader from "../components/Shared/Loader.js";
+import { getData } from "../services/storage";
 
-const Navigator = ({ getFamilyAction }) => {
+const Navigator = ({ getFamilyAction, restoreSessionAction }) => {
   const user = useSelector((state) => state.authentication.user);
   const family = useSelector((state) => state.globalReducers.family);
-
-  console.log(family);
+  const isLoading = useSelector((state) => state.globalReducers.isLoading);
 
   useEffect(() => {
-    user && getFamilyAction(user.familyId);
-  }, [user]);
+    user?.familyId && !family && getFamilyAction(user.familyId);
+  }, []);
+
+  useEffect(() => {
+    const checkStorage = async () => {
+      const userData = await getData("user");
+
+      if (userData) {
+        restoreSessionAction(JSON.parse(userData));
+      }
+    };
+
+    !user && checkStorage();
+  }, []);
 
   const MainStack = createStackNavigator();
   const AuthStack = createStackNavigator();
@@ -50,12 +64,14 @@ const Navigator = ({ getFamilyAction }) => {
           />
         </AuthStack.Navigator>
       )}
+      {isLoading ? <Loader /> : null}
     </NavigationContainer>
   );
 };
 
 const actionCreators = {
   getFamilyAction: getFamily,
+  restoreSessionAction: restoreSession,
 };
 
 export default connect(null, actionCreators)(Navigator);

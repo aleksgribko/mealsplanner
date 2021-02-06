@@ -11,6 +11,7 @@ const UserParameters = ({
   setFamilyName,
   familyName,
   handleCreateFamily,
+  handleLogOut,
 }) => {
   return (
     <View style={styles.wrap}>
@@ -41,11 +42,13 @@ const UserParameters = ({
           <View style={styles.section}>
             <View style={styles.subSection}>
               <Text style={styles.sectionSubtitle}>Name</Text>
-              <Text style={styles.sectionText}>Gribko</Text>
+              <Text style={styles.sectionText}>{family?.name || "-"}</Text>
             </View>
             <View style={styles.subSection}>
               <Text style={styles.sectionSubtitle}>Members</Text>
-              <Text style={styles.sectionText}>Lucie</Text>
+              <Text style={styles.sectionText}>
+                {family?.members.map((item) => item.name)}
+              </Text>
             </View>
           </View>
         </View>
@@ -67,7 +70,7 @@ const UserParameters = ({
           </View>
         </View>
       )}
-
+      <ButtonGeneral variant={"solid"} text="Log Out" onPress={handleLogOut} />
       {/* <View style={styles.buttonsWrap}>
         <ButtonGeneral
           variant={"solid-color1"}

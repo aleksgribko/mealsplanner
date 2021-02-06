@@ -6,25 +6,27 @@ import api from "../../services/api";
 // import {setToken, getToken, removeToken} from '../../services/cookies';
 // import jwt from 'jsonwebtoken';
 
+// eslint-disable-next-line import/prefer-default-export
 export const createFamily = (userId, familyName) => {
   return async (dispatch) => {
-    // dispatch({ type: SET_LOADING, loading: true });
+    dispatch(SET_LOADING(true));
 
     try {
       const res = await api.createFamily({ userId, familyName });
-
-      if (res != false) {
-        dispatch(GET_FAMILY_SUCCESS(res));
+      console.log("HERE IS FAMILY RESULT", res);
+      if (res !== false) {
+        dispatch(GET_FAMILY_SUCCESS(res.family));
         dispatch(SET_LOADING(false));
       } else {
         dispatch(SET_LOADING(false));
-        console.log("CAN'T");
+        console.log("CAN'T get family2");
       }
 
-      return res;
+      return true;
     } catch (error) {
       //   dispatch({type: LIST_LOAD_FAILURE, error});
       console.log("This error", error);
+      return false;
     }
   };
 };

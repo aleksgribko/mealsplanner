@@ -15,12 +15,12 @@ const globalSlice = createSlice({
         isLoading: action.payload,
       };
     },
-  },
-  GET_FAMILY_SUCCESS(state, action) {
-    return {
-      ...state,
-      family: action.payload,
-    };
+    GET_FAMILY_SUCCESS(state, action) {
+      return {
+        ...state,
+        family: action.payload,
+      };
+    },
   },
 });
 
