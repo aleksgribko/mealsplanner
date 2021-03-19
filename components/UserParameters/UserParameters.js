@@ -32,7 +32,7 @@ const UserParameters = ({
           </View> */}
           <View style={styles.subSection}>
             <Text style={styles.sectionSubtitle}>Email</Text>
-            <Text style={styles.sectionText}>alezh89@gmail.com</Text>
+            <Text style={styles.sectionText}>{user.email}</Text>
           </View>
         </View>
       </View>

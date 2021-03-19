@@ -21,9 +21,9 @@ const UserParametersWrap = ({
   console.log("FAMILY", family);
 
   const handleCreateFamily = () => {
-    const res = createFamilyAction(user.id, familyName);
+    const res = createFamilyAction(user, familyName);
     console.log(res);
-    if (res) getFamilyAction(res.id);
+    if (res?.id) getFamilyAction(user.accessToken);
   };
 
   const handleLogOut = () => {

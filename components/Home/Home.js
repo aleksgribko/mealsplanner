@@ -12,8 +12,14 @@ import foodPic from "../../assets/food.jpg";
 import { abs } from "react-native-reanimated";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
+import stylesheet from "./style";
+import { useSelector } from "react-redux";
 
 const WelcomeScreen = ({ navigation }) => {
+
+  const user = useSelector((state) => state.authentication.user);
+
+
   const d = new Date();
   const n = d.getDay();
 
@@ -45,6 +51,8 @@ const WelcomeScreen = ({ navigation }) => {
       break;
   }
 
+  if(!user) return <View></View>
+
   return (
     <View style={styles.wrap}>
       <View style={styles.img_wrap}>
@@ -55,7 +63,7 @@ const WelcomeScreen = ({ navigation }) => {
       </View>
       <View style={styles.wrap_main}>
         <Text style={styles.textMain}>
-          Hi, Sasha, this is what is planned for today
+          {`Hi, ${user.name}, this is what is planned for today`}
         </Text>
 
         <ScrollView
@@ -110,58 +118,4 @@ const WelcomeScreen = ({ navigation }) => {
 
 export default WelcomeScreen;
 
-const styles = StyleSheet.create({
-  wrap: { flex: 1 },
-  img_wrap: {
-    position: "relative",
-    marginBottom: 10,
-    width: "100%",
-    // height: 250,
-    flex: 1,
-    alignItems: "center",
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-  imgFood: { position: "absolute", left: 0, width: "100%", height: 250 },
-  text_wrap: { backgroundColor: "rgba(256, 256, 256, 0.8)", padding: 10 },
-  week_text: {
-    fontSize: 30,
-    color: "#cd0000",
-  },
-  instructions: {
-    color: "#888",
-    fontSize: 18,
-    marginTop: 20,
-    marginBottom: 10,
-    marginHorizontal: 15,
-  },
-  textMain: { fontSize: 16 },
-  buttonStart: { backgroundColor: "#cd0000", padding: 20, borderRadius: 5 },
-  buttonStartText: { fontSize: 20, color: "#fff" },
-  wrap_main: { flex: 2 },
-  divider: {
-    width: 100,
-    borderTopColor: "whitesmoke",
-    borderStyle: "solid",
-    borderTopWidth: 2,
-    marginTop: 0,
-    marginBottom: 10,
-  },
-  mealTimeText: {
-    marginTop: 10,
-  },
-  dishCompleted: {
-    padding: 10,
-    backgroundColor: "#99ffbb",
-    width: 300,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  dishMissing: {
-    padding: 10,
-    backgroundColor: "#ff9999",
-    width: 300,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-});
+const styles = StyleSheet.create(stylesheet);

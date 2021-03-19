@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import WelcomeScreen from "../components/Home/Home.wrap";
+import RecipesScreen from "../components/Recipes/Recipes.wrap";
 import ShoppingList from "../components/ShoppingList/ShoppingList.wrap";
 import WeekPlanner from "../components/WeekPlanner/WeekPlanner.wrap";
 // import Recipes from "../components/Recipes/Recipes";
@@ -59,7 +60,7 @@ const MainNavigator = () => {
       <TabStack.Screen name="Shopping" component={ShoppingList} />
       <TabStack.Screen name="Planner" component={WeekPlanner} />
       <TabStack.Screen name="Welcome" component={WelcomeScreen} />
-      <TabStack.Screen name="Recipes" component={WelcomeScreen} />
+      <TabStack.Screen name="Recipes" component={RecipesScreen} />
       <TabStack.Screen name="User" component={UserParameters} />
     </TabStack.Navigator>
   );

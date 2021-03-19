@@ -9,7 +9,7 @@ import {
   Modal,
   TouchableHighlight,
 } from "react-native";
-import RecipesExpandable from "../Recipes/RecipesExpandable";
+// import RecipesExpandable from "../Recipes/RecipesExpandable";
 import moment from "moment";
 
 const WeekPlanner = ({ navigation }) => {
@@ -71,7 +71,7 @@ const WeekPlanner = ({ navigation }) => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>Pick a dish</Text>
-              <RecipesExpandable />
+              {/* <RecipesExpandable /> */}
 
               <TouchableHighlight
                 style={styles.buttonClose}

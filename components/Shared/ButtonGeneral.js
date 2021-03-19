@@ -116,6 +116,16 @@ styles.variant["solid"] = {
   text: { color: "white" },
 };
 
+styles.variant["red"] = {
+  container: {
+    borderRadius: 33,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    backgroundColor: 'red',
+  },
+  text: { color: "white" },
+};
+
 styles.variant["grey"] = {
   container: {
     borderRadius: 33,

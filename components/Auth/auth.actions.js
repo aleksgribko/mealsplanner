@@ -18,17 +18,15 @@ export const logIn = (email, password) => {
 
     try {
       const res = await api.login({ email, password });
-
-      if (res !== false) {
+      if (res.ok) {
         storeData("user", JSON.stringify(res));
-
         dispatch(LOGIN_SUCCESS(res));
         dispatch(SET_LOADING(false));
       } else {
         dispatch(SET_LOADING(false));
-
+        removeData("user");
         showMessage({
-          message: "Can't log in",
+          message: res.error || "Can't log in",
           type: "danger",
         });
       }
@@ -59,39 +57,35 @@ export const signUp = (entries) => {
     );
 
     if (!dataOrError.ok) {
-      console.log(dataOrError);
       dispatch(SET_LOADING(false));
       return showMessage({
         message: dataOrError.errorMessage,
         type: dataOrError.errorType,
       });
-    } else {
-      try {
-        const res = await api.signup({
-          email: dataOrError.value.email,
-          password: dataOrError.value.password,
-          name: dataOrError.value.name,
-        });
+    }
+    try {
+      const res = await api.signup({
+        email: dataOrError.value.email,
+        password: dataOrError.value.password,
+        name: dataOrError.value.name,
+      });
 
-        console.log(res);
-
-        if (res) {
-          dispatch(SET_LOADING(false));
-          dispatch(SIGN_UP_SUCCESS(res));
-        } else {
-          dispatch(SET_LOADING(false));
-          showMessage({
-            message: "Can't sigh up2",
-            type: "danger",
-          });
-        }
-      } catch (error) {
+      if (res.ok) {
+        dispatch(SET_LOADING(false));
+        dispatch(SIGN_UP_SUCCESS(res.data));
+      } else {
         dispatch(SET_LOADING(false));
         showMessage({
-          message: "Can't sigh up3",
+          message: res.error || "Can't sigh up",
           type: "danger",
         });
       }
+    } catch (error) {
+      dispatch(SET_LOADING(false));
+      showMessage({
+        message: error || "Can't sigh up: Error",
+        type: "danger",
+      });
     }
 
     // try {
@@ -113,9 +107,19 @@ export const restoreSession = (user) => {
   return async (dispatch) => {
     dispatch(SET_LOADING(true));
     try {
-      // const res = await api.restoreSession(token);
-      dispatch(LOGIN_SUCCESS(user));
-      dispatch(SET_LOADING(false));
+      const res = await api.restoreSession(user.accessToken);
+      console.log(res)
+      if (res.ok) {
+        dispatch(LOGIN_SUCCESS(res.data));
+        dispatch(SET_LOADING(false));
+      } else {
+        dispatch(SET_LOADING(false));
+        removeData("user");
+        showMessage({
+          message: res.error,
+          type: "danger",
+        });
+      }
     } catch (error) {
       console.log("Can't restore session");
     }

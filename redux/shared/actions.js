@@ -8,15 +8,15 @@ import api from "../../services/api";
 // };
 
 // eslint-disable-next-line import/prefer-default-export
-export const getFamily = (familyId) => {
+export const getFamily = (userToken) => {
   return async (dispatch) => {
     dispatch(SET_LOADING(true));
 
     try {
-      const res = await api.getFamily(familyId);
+      const res = await api.getFamily(userToken);
 
       if (res !== false) {
-        dispatch(GET_FAMILY_SUCCESS(res.family));
+        dispatch(GET_FAMILY_SUCCESS(res.data));
         dispatch(SET_LOADING(false));
       } else {
         dispatch(SET_LOADING(false));

@@ -19,8 +19,8 @@ const Navigator = ({ getFamilyAction, restoreSessionAction }) => {
   const isLoading = useSelector((state) => state.globalReducers.isLoading);
 
   useEffect(() => {
-    user?.familyId && !family && getFamilyAction(user.familyId);
-  }, []);
+    user?.familyId && !family && getFamilyAction(user.accessToken);
+  }, [user]);
 
   useEffect(() => {
     const checkStorage = async () => {

@@ -3,7 +3,6 @@ import { getToken } from "./storage";
 
 const api = {
   login: async (body) => {
-    console.log("BODY", body);
     try {
       const res = await fetch(`${config.apiUrl}/auth/signin`, {
         method: "POST",
@@ -13,13 +12,12 @@ const api = {
         },
       });
 
-      return res && res.ok ? await res.json() : false;
+      return await res.json();
     } catch (err) {
       console.error(err);
     }
   },
   signup: async (body) => {
-    console.log("BODY", body);
     try {
       const res = await fetch(`${config.apiUrl}/auth/signup`, {
         method: "POST",
@@ -28,136 +26,94 @@ const api = {
           "Content-Type": "application/json",
         },
       });
-      return res;
+      return await res.json();
     } catch (err) {
       console.error(err);
     }
   },
-  getFamily: async (familyId) => {
+  getFamily: async (token) => {
     try {
-      const res = await fetch(`${config.apiUrl}/family/${familyId}`, {
+      const res = await fetch(`${config.apiUrl}/families`, {
         method: "GET",
         // body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
+          "x-access-token": token,
         },
       });
-      console.log("WHAT IS MY FAMILY!", familyId, res);
 
-      return res && res.ok ? await res.json() : false;
+      return await res.json();
     } catch (err) {
       console.error(err);
     }
   },
-  createFamily: async (body) => {
+  createFamily: async (body, token) => {
     try {
-      const res = await fetch(`${config.apiUrl}/family`, {
+      const res = await fetch(`${config.apiUrl}/families`, {
         method: "POST",
         body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
+          "x-access-token": token,
         },
       });
 
-      return res && res.ok ? await res.json() : false;
+      return await res.json();
     } catch (err) {
       console.error(err);
     }
   },
-  // restoreSession: async (token) => {
-  //   try {
-  //     const res = await fetch(`${config.apiUrl}/auth/restore-session`, {
-  //       method: "GET",
-  //       body: JSON.stringify({ token }),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
+  restoreSession: async (token) => {
+    try {
+      const res = await fetch(`${config.apiUrl}/auth/restoreSession`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        },
+      });
 
-  //     return res && res.ok ? await res.json() : false;
-  //   } catch (err) {
-  //     console.error(err);
-  //     return false;
-  //   }
-  // },
+      console.log(res);
 
-  // get: async (resource, oneResourceId = false, query, withAuth = false) => {
-  //   try {
-  //     let headers = {
-  //       "Content-Type": "application/json",
-  //     };
+      return await res.json();
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  getAll: async (resource, token) => {
+    console.log(resource, token)
+    try {
+      const res = await fetch(`${config.apiUrl}/${resource}`, {
+        method: "GET",
+        // body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        },
+      });
 
-  //     if (withAuth) {
-  //       headers["Authorization"] = "Bearer " + (await getToken());
-  //     }
-
-  //     const res = await fetch(
-  //       `${config.apiUrl}/${resource}${
-  //         oneResourceId ? "/" + oneResourceId : ""
-  //       }${query ? query : ""}`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           ...headers,
-  //         },
-  //       }
-  //     );
-
-  //     return res && res.ok ? await res.json() : false;
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // },
-  // create: async (resource, body) => {
-  //   try {
-  //     const res = await fetch(`${config.apiUrl}/${resource}`, {
-  //       method: "POST",
-  //       body: JSON.stringify(body),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: "Bearer " + (await getToken()),
-  //       },
-  //     });
-  //     return res && res.ok ? await res.json() : false;
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // },
-  // update: async (resource, oneResourceId, body, token) => {
-  //   try {
-  //     const res = await fetch(
-  //       `${config.apiUrl}/${resource}${
-  //         oneResourceId ? "/" + oneResourceId : ""
-  //       }`,
-  //       {
-  //         method: "PUT",
-  //         body: JSON.stringify(body),
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: "Bearer " + (token || (await getToken())),
-  //         },
-  //       }
-  //     );
-  //     return res && res.ok ? await res.json() : false;
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // },
-  // delete: async (resource, body) => {
-  //   try {
-  //     const res = await fetch(`${config.apiUrl}/${resource}`, {
-  //       method: "DELETE",
-  //       body: JSON.stringify(body),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: "Bearer " + (await getToken()),
-  //       },
-  //     });
-  //     return res && res.ok ? await res.json() : false;
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // },
+      return await res.json();
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  create: async (resource, token, name) => {
+   
+    try {
+      const res = await fetch(`${config.apiUrl}/${resource}`, {
+        method: "POST",
+        body: JSON.stringify({ name }),
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        },
+      });
+      console.log(res);
+      return await res.json();
+    } catch (err) {
+      console.error(err);
+    }
+  },
 };
 
 export default api;
