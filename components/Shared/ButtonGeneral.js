@@ -9,6 +9,7 @@ export default function ButtonGeneral({
   variant = "default",
   //   style,
   //   textStyle,
+  marginVertical = 0,
   onPress,
   text = "Button",
   //   ...props
@@ -21,6 +22,7 @@ export default function ButtonGeneral({
   let _containerStyle = {
     ...defaultStyle.container, // Default button style
     ...buttonStyle.container, // Variant style
+    marginVertical,
     // ...style, // User specific style
     // ...shadow,
     // ...transform,

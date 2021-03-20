@@ -121,7 +121,13 @@ export const restoreSession = (user) => {
         });
       }
     } catch (error) {
-      console.log("Can't restore session");
+    
+      dispatch(SET_LOADING(false));
+      removeData("user");
+      showMessage({
+        message: "Er: can't restore session",
+        type: "danger",
+      });
     }
   };
 };

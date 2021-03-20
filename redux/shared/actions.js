@@ -15,7 +15,7 @@ export const getFamily = (userToken) => {
     try {
       const res = await api.getFamily(userToken);
 
-      if (res !== false) {
+      if (res.ok) {
         dispatch(GET_FAMILY_SUCCESS(res.data));
         dispatch(SET_LOADING(false));
       } else {

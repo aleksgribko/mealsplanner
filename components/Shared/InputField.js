@@ -9,7 +9,7 @@ export default function InputBox({
   value,
   onChangeText,
   editable = true,
-
+  maxLength,
   info = "Info",
 
   ...props
@@ -43,6 +43,7 @@ export default function InputBox({
           editable={editable}
           value={value}
           onChangeText={onChangeText}
+          maxLength={maxLength || 1000}
           style={_textStyle}
           autoCapitalize="none"
           {...props}
