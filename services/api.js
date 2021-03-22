@@ -97,12 +97,11 @@ const api = {
       console.error(err);
     }
   },
-  create: async (resource, token, name) => {
-   
+  create: async (resource, token, data) => {
     try {
       const res = await fetch(`${config.apiUrl}/${resource}`, {
         method: "POST",
-        body: JSON.stringify({ name }),
+        body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
           "x-access-token": token,

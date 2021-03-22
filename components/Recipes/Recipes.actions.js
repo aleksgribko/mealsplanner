@@ -9,7 +9,7 @@ export const createCategory = (name, token) => {
   return async (dispatch) => {
     dispatch(SET_LOADING(true));
     try {
-      const res = await api.create("categories", token, name);
+      const res = await api.create("categories", token, { name });
       console.log(res);
       if (res.ok) {
         const resCat = await api.getAll("categories", token);
@@ -99,7 +99,6 @@ export const getMeals = (token) => {
     }
   };
 };
-
 
 export const createMeal = (data, token) => {
   return async (dispatch) => {

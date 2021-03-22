@@ -30,13 +30,15 @@ const Recipes = ({
   activeCategory,
   setActiveCategory,
   setShowAddRecipeModal,
+  activateIngredientInput,
+  setActivateIngredientInput,
 }) => {
   // const recipes = useSelector((state) => state.globalReducers.family);
   // mealTypes
 
-  console.log(categories);
 
-  if (!categories) return <Loader />;
+
+  if (!categories) return <View></View>;
 
   const renderHeader = (section) => {
     return (

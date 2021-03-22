@@ -1,4 +1,4 @@
-import { colors } from '../../globalStyle/variables'
+import { colors } from "../../globalStyle/variables";
 
 export default {
   wrap: {
@@ -32,31 +32,45 @@ export default {
     padding: 10,
   },
   headerText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   content: {
     padding: 20,
     backgroundColor: "#fff",
   },
   overlayActionWrap: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 150
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: 150,
+    marginBottom: 20,
+    marginTop: 20,
+
   },
   overlayWrap: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    backgroundColor: "rgba(85, 131, 3,0.8)",
+    backgroundColor: "rgba(220, 220, 220,1)",
+  },
+  overlayInScroll: {
+    alignItems: "center",
+    width: "100%",
+    justifyContent: "space-evenly",
   },
   overlayTitle: {
-    fontSize: 16,
-    color: 'white'
+    fontSize: 20,
+    color: "black",
+    padding: 20
+  },
+  inputSectionWrap: {
+    width: "95%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 10,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  ingredientsInputs: {
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 };

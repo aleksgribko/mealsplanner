@@ -11,6 +11,7 @@ export default function InputBox({
   editable = true,
   maxLength,
   info = "Info",
+  rounded = true,
 
   ...props
 }) {
@@ -19,6 +20,7 @@ export default function InputBox({
   let _containerStyle = {
     ...defaultStyle.container,
     ...inputStyle.container,
+    borderRadius: rounded ? 33 : 5,
   };
   const _textStyle = {
     ...defaultStyle.text,
@@ -88,7 +90,7 @@ const defaultStyle = styles.variant["default"];
 styles.variant["grey"] = {
   container: {
     height: 40,
-    borderRadius: 33,
+
     paddingHorizontal: 16,
     marginHorizontal: 16,
     backgroundColor: Platform.OS === "ios" ? "rgb(255, 160, 160)" : "#00000011",
