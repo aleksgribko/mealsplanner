@@ -1,3 +1,3 @@
 export default {
-  apiUrl: "https://2301ae121efc.ngrok.io",
+  apiUrl: "https://21c1ba70d392.ngrok.io",
 };

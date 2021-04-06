@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Recipes from "./Recipes";
 import {
-  getCategories,
   createCategory,
-  getMeals,
   createMeal,
+  getInitialCatMealsIng,
 } from "./Recipes.actions";
 import { connect, useSelector } from "react-redux";
 import { showMessage } from "react-native-flash-message";
 import AddRecipeModal from "./AddRecipeModal";
-import { Modal } from "react-native";
+import { Modal, TouchableHighlight, View } from "react-native";
+import ModalMealDescription from "./ModalMealDescription";
 
 const RecipesWrap = ({
   createCategoryAction,
-  getCategoriesAction,
-  getMealsAction,
   createMealAction,
+  getInitialCatMealsIngAction,
 }) => {
   const [categoryName, setCategoryName] = useState("");
   const [activeCategory, setActiveCategory] = useState(null);
@@ -29,33 +28,20 @@ const RecipesWrap = ({
     category: null,
     ingredients: [],
   });
+  const [
+    mealDescriptionModalVisible,
+    setMealDescriptionModalVisible,
+  ] = useState(false);
 
   const categories = useSelector((state) => state.recipes.categories);
   const meals = useSelector((state) => state.recipes.meals);
+  const ingredients = useSelector((state) => state.recipes.ingredients);
   const user = useSelector((state) => state.authentication.user);
 
   useEffect(() => {
-    !meals && getMealsAction(user.accessToken);
-  }, [meals]);
-
-  useEffect(() => {
-    !categories && getCategoriesAction(user.accessToken);
-  }, [categories]);
-
-  const handleCreateCategory = () => {
-    if (!categoryName.length) {
-      showMessage({
-        message: "Enter a name",
-        type: "danger",
-      });
-    } else {
-      createCategoryAction(categoryName, user.accessToken);
-    }
-  };
-
-  const toggleCategoryCreateInput = (bool) => {
-    setActivateCategoryInput(bool);
-  };
+    (!categories || !meals || !ingredients) &&
+      getInitialCatMealsIngAction(user.token);
+  }, [meals, categories, ingredients]);
 
   const handleChangeInput = (type, val) => {
     let filteredVal = null;
@@ -67,6 +53,38 @@ const RecipesWrap = ({
       ...userRecipeInput,
       [type]: type === "numberOfPpl" ? filteredVal : val,
     });
+  };
+
+  const handleToggleRecipeModal = (bool) => {
+    if (bool) {
+      handleChangeInput("category", categories[0]);
+      setShowAddRecipeModal(true);
+    } else {
+      setShowAddRecipeModal(false);
+      setUserRecipeInput({
+        name: "",
+        description: "",
+        numberOfPpl: "",
+        category: null,
+        ingredients: [],
+      });
+    }
+  };
+
+  const toggleCategoryCreateInput = (bool) => {
+    setActivateCategoryInput(bool);
+  };
+
+  const handleCreateCategory = () => {
+    if (!categoryName.length) {
+      showMessage({
+        message: "Enter a name",
+        type: "danger",
+      });
+    } else {
+      createCategoryAction(categoryName, user.token);
+      toggleCategoryCreateInput(false);
+    }
   };
 
   const handleChangeIngredientInput = (type, ind, val) => {
@@ -95,7 +113,7 @@ const RecipesWrap = ({
         ...userRecipeInput.ingredients,
         {
           name: "",
-          measurement: "",
+          measurement: "gr",
           quantity: 0,
         },
       ],
@@ -103,9 +121,10 @@ const RecipesWrap = ({
   };
 
   const handleAddRecipe = () => {
+    setShowAddRecipeModal(false);
     createMealAction(
       { ...userRecipeInput, category: userRecipeInput.category._id },
-      user.accessToken
+      user.token
     );
   };
 
@@ -120,11 +139,26 @@ const RecipesWrap = ({
         categoryName={categoryName}
         activeCategory={activeCategory}
         setActiveCategory={setActiveCategory}
-        setShowAddRecipeModal={setShowAddRecipeModal}
+        handleToggleRecipeModal={handleToggleRecipeModal}
         activateIngredientInput={activateIngredientInput}
         setActivateIngredientInput={setActivateIngredientInput}
         handleChangeIngredientInput={handleChangeIngredientInput}
+        meals={meals}
+        setMealDescriptionModalVisible={setMealDescriptionModalVisible}
       />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={Boolean(mealDescriptionModalVisible)}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+        }}
+      >
+        <ModalMealDescription
+          setMealDescriptionModalVisible={setMealDescriptionModalVisible}
+          mealDescriptionModalVisible={mealDescriptionModalVisible}
+        />
+      </Modal>
 
       <Modal
         animationType="slide"
@@ -132,7 +166,7 @@ const RecipesWrap = ({
         transparent={true}
       >
         <AddRecipeModal
-          setShowAddRecipeModal={setShowAddRecipeModal}
+          handleToggleRecipeModal={handleToggleRecipeModal}
           handleChangeInput={handleChangeInput}
           userRecipeInput={userRecipeInput}
           categories={categories}
@@ -147,9 +181,8 @@ const RecipesWrap = ({
 
 const actionCreators = {
   createCategoryAction: createCategory,
-  getCategoriesAction: getCategories,
-  getMealsAction: getMeals,
   createMealAction: createMeal,
+  getInitialCatMealsIngAction: getInitialCatMealsIng,
 };
 
 export default connect(null, actionCreators)(RecipesWrap);

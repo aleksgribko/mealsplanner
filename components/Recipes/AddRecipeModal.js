@@ -22,18 +22,16 @@ const styles = StyleSheet.create(stylesheet);
 const windowHeight = Dimensions.get("window").height;
 
 const AddRecipeModal = ({
-  setShowAddRecipeModal,
+  handleToggleRecipeModal,
   handleChangeInput,
   userRecipeInput,
   categories,
   handlePressAddIngredient,
   handleChangeIngredientInput,
-  handleAddRecipe
+  handleAddRecipe,
 }) => {
   return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={styles.overlayWrap}
-    >
+    <KeyboardAwareScrollView contentContainerStyle={styles.overlayWrap}>
       <View style={{ ...styles.overlayInScroll, minHeight: windowHeight }}>
         {/* <View > */}
         <Text style={styles.overlayTitle}>Add new recipe</Text>
@@ -48,7 +46,9 @@ const AddRecipeModal = ({
         <View style={styles.inputSectionWrap}>
           <InputBox
             info="Recipe description"
+            multiline={true}
             variant={"grey"}
+            numberOfLines={4}
             value={userRecipeInput.description}
             onChangeText={(text) => handleChangeInput("description", text)}
           />
@@ -65,7 +65,7 @@ const AddRecipeModal = ({
         <View style={styles.inputSectionWrap}>
           <Text>Pick category</Text>
           <Picker
-            selectedValue={userRecipeInput.category?.name || ""}
+            selectedValue={userRecipeInput.category?.name || categories[0].name}
             onValueChange={(itemValue) =>
               handleChangeInput("category", itemValue)
             }
@@ -95,8 +95,8 @@ const AddRecipeModal = ({
                     <View style={{ width: "25%" }}>
                       <InputBox
                         info="quantity"
-                        variant={"grey"}
-                        value={item.quantity}
+                        variant="grey"
+                        value={item.quantity.toString()}
                         rounded={false}
                         onChangeText={(text) =>
                           handleChangeIngredientInput("quantity", ind, text)
@@ -105,8 +105,7 @@ const AddRecipeModal = ({
                     </View>
                     <View style={{ width: "35%" }}>
                       <Picker
-                      
-                        selectedValue={item.measurement || ""}
+                        selectedValue={item.measurement || measurements[0]}
                         onValueChange={(text) =>
                           handleChangeIngredientInput("measurement", ind, text)
                         }
@@ -140,7 +139,7 @@ const AddRecipeModal = ({
           <ButtonGeneral
             text={"Cancel"}
             variant={"red"}
-            onPress={() => setShowAddRecipeModal(false)}
+            onPress={() => handleToggleRecipeModal(false)}
           />
         </View>
         {/* </View> */}

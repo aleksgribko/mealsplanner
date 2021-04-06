@@ -46,7 +46,6 @@ export default {
     width: 150,
     marginBottom: 20,
     marginTop: 20,
-
   },
   overlayWrap: {
     backgroundColor: "rgba(220, 220, 220,1)",
@@ -59,7 +58,7 @@ export default {
   overlayTitle: {
     fontSize: 20,
     color: "black",
-    padding: 20
+    padding: 20,
   },
   inputSectionWrap: {
     width: "95%",
@@ -70,7 +69,44 @@ export default {
     marginBottom: 10,
   },
   ingredientsInputs: {
-    flexDirection: 'row',
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: 'rgba(0,0,0,0.6)'
+  },
+  modalView: {
+    minWidth: 300,
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
     alignItems: 'center'
-  }
+  },
+  buttonClose: {
+    backgroundColor: "#cd0000",
+    padding: 10,
+    margin: 5,
+    borderRadius: 5,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
 };

@@ -47,22 +47,6 @@ const api = {
       console.error(err);
     }
   },
-  createFamily: async (body, token) => {
-    try {
-      const res = await fetch(`${config.apiUrl}/families`, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": token,
-        },
-      });
-
-      return await res.json();
-    } catch (err) {
-      console.error(err);
-    }
-  },
   restoreSession: async (token) => {
     try {
       const res = await fetch(`${config.apiUrl}/auth/restoreSession`, {
@@ -108,6 +92,36 @@ const api = {
         },
       });
       console.log(res);
+      return await res.json();
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  update: async (resource, token, data) => {
+    try {
+      const res = await fetch(`${config.apiUrl}/${resource}`, {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        },
+      });
+      return await res.json();
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  delete: async (resource, id, token ) => {
+    try {
+      const res = await fetch(`${config.apiUrl}/${resource}/${id}`, {
+        method: "DELETE",
+        // body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token,
+        },
+      });
       return await res.json();
     } catch (err) {
       console.error(err);

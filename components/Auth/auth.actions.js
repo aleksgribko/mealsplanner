@@ -17,7 +17,10 @@ export const logIn = (email, password) => {
     dispatch(SET_LOADING(true));
 
     try {
+      console.log(email, password)
       const res = await api.login({ email, password });
+
+      console.log(res)
       if (res.ok) {
         storeData("user", JSON.stringify(res));
         dispatch(LOGIN_SUCCESS(res));
@@ -107,7 +110,7 @@ export const restoreSession = (user) => {
   return async (dispatch) => {
     dispatch(SET_LOADING(true));
     try {
-      const res = await api.restoreSession(user.accessToken);
+      const res = await api.restoreSession(user.token);
       console.log(res)
       if (res.ok) {
         dispatch(LOGIN_SUCCESS(res.data));

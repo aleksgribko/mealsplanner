@@ -1,66 +1,29 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
 import CheckBox from "@react-native-community/checkbox";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../../globalStyle/variables";
 import ButtonGeneral from "../Shared/ButtonGeneral";
 import InputBox from "../Shared/InputField";
+import stylesheet from "./style";
 
-const styles = StyleSheet.create({
-  wrap: {
-    flex: 1,
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 20,
-    textAlign: "center",
-    padding: 20,
-  },
-  itemLine: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-    alignItems: "center",
-    borderBottomColor: "#D3D3D3",
-    borderBottomWidth: 1,
-  },
-  itemName: {},
-  itemQuantity: {
-    color: "grey",
-  },
-  itemLineActions: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  icon: {
-    marginHorizontal: 10,
-  },
-  formOverlap: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    backgroundColor: "rgba(255,255,255,0.6)",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  form: {
-    backgroundColor: "rgba(255,255,255,1)",
-    width: 300,
-    borderRadius: 15,
-    padding: 20,
-  },
-});
+const styles = StyleSheet.create(stylesheet);
 
 const ShoppingList = ({
   additionalProducts,
   showForm,
   handleShowForm,
   handleModifyFormInputs,
+  handleAddItem,
   newItemToBuy,
+  handleDeleteItem,
 }) => {
   return (
     <View style={styles.wrap}>
@@ -77,12 +40,14 @@ const ShoppingList = ({
                 style={styles.icon}
                 // onValueChange={(newValue) => setToggleCheckBox(newValue)}
               />
-              <MaterialCommunityIcons
-                name={"delete-outline"}
-                size={20}
-                style={styles.icon}
-                color={colors.color3}
-              />
+              <TouchableOpacity onPress={() => handleDeleteItem(item._id)}>
+                <MaterialCommunityIcons
+                  name={"delete-outline"}
+                  size={20}
+                  style={styles.icon}
+                  color={colors.color3}
+                />
+              </TouchableOpacity>
             </View>
           </View>
         );
@@ -100,14 +65,26 @@ const ShoppingList = ({
               info="Name"
               variant={"grey"}
               value={newItemToBuy.name}
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={(text) => handleModifyFormInputs("name", text)}
             />
             <InputBox
               info="Quantity"
               variant={"grey"}
               value={newItemToBuy.quantity}
-              onChangeText={(text) => setPassword(text)}
+              onChangeText={(text) => handleModifyFormInputs("quantity", text)}
             />
+            <View style={styles.overlayActionWrap}>
+              <ButtonGeneral
+                text={"Save"}
+                variant={"solid"}
+                onPress={() => handleAddItem()}
+              />
+              <ButtonGeneral
+                text={"Cancel"}
+                variant={"red"}
+                onPress={() => handleShowForm(false)}
+              />
+            </View>
           </View>
         </View>
       ) : null}

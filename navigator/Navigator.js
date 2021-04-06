@@ -19,7 +19,7 @@ const Navigator = ({ getFamilyAction, restoreSessionAction }) => {
   const isLoading = useSelector((state) => state.globalReducers.isLoading);
 
   useEffect(() => {
-    user?.familyId && !family && getFamilyAction(user.accessToken);
+    user?.family && !family && getFamilyAction(user.token);
   }, [user]);
 
   useEffect(() => {

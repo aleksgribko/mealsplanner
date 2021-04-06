@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   meals: null,
   categories: null,
+  ingredients: null,
 };
 
 const recipesSlice = createSlice({
@@ -21,9 +22,19 @@ const recipesSlice = createSlice({
         categories: action.payload,
       };
     },
+    SET_INGREDIENTS(state, action) {
+      return {
+        ...state,
+        ingredients: action.payload,
+      };
+    },
   },
 });
 
-export const { SET_MEALS, SET_CATEGORIES } = recipesSlice.actions;
+export const {
+  SET_MEALS,
+  SET_CATEGORIES,
+  SET_INGREDIENTS,
+} = recipesSlice.actions;
 // Reducer
 export default recipesSlice.reducer;

@@ -7,12 +7,20 @@ import { showMessage, hideMessage } from "react-native-flash-message";
 // import jwt from 'jsonwebtoken';
 
 // eslint-disable-next-line import/prefer-default-export
-export const createFamily = (user, familyName) => {
-  return async (dispatch) => {
+export const createFamily = (familyName) => {
+  return async (dispatch, getState) => {
+    const { authentication } = getState();
+    const { user } = authentication;
+
+    console.log('DATA', user, authentication);
+
     dispatch(SET_LOADING(true));
 
     try {
-      const res = await api.createFamily({ userId: user.id, familyName }, user.accessToken);
+      const res = await api.create("families", user.token, {
+        userId: user.id,
+        familyName,
+      });
       console.log("HERE IS FAMILY RESULT", res);
       if (res.ok) {
         dispatch(GET_FAMILY_SUCCESS(res.family));

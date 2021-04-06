@@ -20,10 +20,10 @@ const UserParametersWrap = ({
   console.log("USER!!!!!!!!!!!!!!!!", user);
   console.log("FAMILY", family);
 
-  const handleCreateFamily = () => {
-    const res = createFamilyAction(user, familyName);
+  const handleCreateFamily = async () => {
+    const res = await createFamilyAction(familyName);
     console.log(res);
-    if (res?.id) getFamilyAction(user.accessToken);
+    if (res?.id) getFamilyAction();
   };
 
   const handleLogOut = () => {

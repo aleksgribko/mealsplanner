@@ -12,7 +12,8 @@ export default function InputBox({
   maxLength,
   info = "Info",
   rounded = true,
-
+  multiline = false,
+  numberOfLines = 1,
   ...props
 }) {
   const inputStyle = styles.variant[variant];
@@ -25,6 +26,8 @@ export default function InputBox({
   const _textStyle = {
     ...defaultStyle.text,
     ...inputStyle.text,
+    textAlignVertical: "top",
+    minHeight: 30
   };
 
   if (props.disabled) {
@@ -40,14 +43,17 @@ export default function InputBox({
         {/* {phoneNumber ? <Text style={inputStyle.phone}>+33</Text> : <></>} */}
         <TextInput
           // placeholder={'placeholder'}
+          multiline={true}
           keyboardType={"default"}
           //   secureTextEntry={secret && hide}
           editable={editable}
           value={value}
           onChangeText={onChangeText}
+          numberOfLines={numberOfLines}
           maxLength={maxLength || 1000}
           style={_textStyle}
           autoCapitalize="none"
+          
           {...props}
         />
       </View>
@@ -62,7 +68,7 @@ const styles = {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
       },
       text: {
         textAlign: "center",
@@ -92,7 +98,7 @@ styles.variant["grey"] = {
     height: 40,
 
     paddingHorizontal: 16,
-    marginHorizontal: 16,
+    marginHorizontal: 5,
     backgroundColor: Platform.OS === "ios" ? "rgb(255, 160, 160)" : "#00000011",
     color: colors.color1,
     // width: "100%",
