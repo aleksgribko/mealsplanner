@@ -1,3 +1,13 @@
+import {API_URL, API_URL_DEV} from "@env";
+
+let apiUrl;
+
+if (__DEV__) {
+  apiUrl = API_URL_DEV;
+} else {
+  apiUrl = API_URL;
+}
+
 export default {
-  apiUrl: "https://bbd8-2a01-e0a-10e-dbd0-d2ce-96f4-6521-8dc4.ngrok.io",
+  apiUrl
 };

@@ -1,5 +1,4 @@
 import config from "../config/urls";
-import { getToken } from "./storage";
 
 const api = {
   login: async (body) => {
@@ -12,7 +11,8 @@ const api = {
         },
       });
 
-      return await res.json();
+      const parsedRes = await res.json();      
+      return {ok: res.status < 399, ...parsedRes}
     } catch (err) {
       console.error(err);
     }
@@ -25,8 +25,11 @@ const api = {
         headers: {
           "Content-Type": "application/json",
         },
-      });
-      return await res.json();
+      });  
+
+      const parsedRes = await res.json();
+      
+      return {ok: res.status < 399, ...parsedRes}
     } catch (err) {
       console.error(err);
     }
@@ -50,6 +53,7 @@ const api = {
   restoreSession: async (token) => {
     try {
       const res = await fetch(`${config.apiUrl}/auth/restoreSession`, {
+        body: JSON.stringify({token}),
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,9 +61,9 @@ const api = {
         },
       });
 
-      console.log(res);
-
-      return await res.json();
+      const parsedRes = await res.json();
+      
+      return {ok: res.status < 399, ...parsedRes}
     } catch (err) {
       console.error(err);
     }

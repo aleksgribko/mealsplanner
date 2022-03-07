@@ -35,7 +35,7 @@ const Recipes = ({
             marginBottom: 15,
           }}
         >
-          {categories.length ? (
+          {categories?.length ? (
             <ButtonGeneral
               text={"Add new recipe"}
               variant={"solid"}

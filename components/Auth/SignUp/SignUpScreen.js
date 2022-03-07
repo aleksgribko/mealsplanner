@@ -7,9 +7,8 @@ import {
   ImageBackground,
 } from "react-native";
 import InputBox from "../../Shared/InputField";
-import styleSheet from "./style";
+import styleSheet from "../style";
 import ButtonGeneral from "../../Shared/ButtonGeneral";
-import moment from "moment";
 
 const styles = StyleSheet.create(styleSheet);
 

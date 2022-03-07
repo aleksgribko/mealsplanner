@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import {
   StyleSheet,
   Text,
@@ -13,14 +13,14 @@ import {
   StatusBar,
 } from "react-native";
 import foodPic from "./assets/food.jpg";
-import { Notifications } from "expo";
+import {Notifications} from "expo";
 import * as Permissions from "expo-permissions";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 import configureStore from "./redux/configureStore";
 import FlashMessage from "react-native-flash-message";
 import Navigator from "./navigator/Navigator";
 // import Constants from "expo-constants";
-import { colors } from "./globalStyle/variables";
+import {colors} from "./globalStyle/variables";
 
 const store = configureStore();
 
@@ -68,5 +68,3 @@ export default function App() {
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({});

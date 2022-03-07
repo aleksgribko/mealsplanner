@@ -52,41 +52,44 @@ export const signUp = (entries) => {
   return async (dispatch) => {
     dispatch(SET_LOADING(true));
 
-    const dataOrError = SignUpForm.checkEntries(
-      entries.name,
-      entries.email,
-      entries.password,
-      entries.confirmPassword
-    );
+    // const dataOrError = SignUpForm.checkEntries(
+    //   entries.name,
+    //   entries.email,
+    //   entries.password,
+    //   entries.confirmPassword
+    // );
 
-    if (!dataOrError.ok) {
-      dispatch(SET_LOADING(false));
-      return showMessage({
-        message: dataOrError.errorMessage,
-        type: dataOrError.errorType,
-      });
-    }
+
+    // if (!dataOrError.ok) {
+    //   dispatch(SET_LOADING(false));
+    //   return showMessage({
+    //     message: dataOrError.message,
+    //     type: 'danger',
+    //   });
+    // }
     try {
       const res = await api.signup({
-        email: dataOrError.value.email,
-        password: dataOrError.value.password,
-        name: dataOrError.value.name,
+        email: entries.email,
+        password: entries.password,
+        name: entries.name,
       });
 
       if (res.ok) {
         dispatch(SET_LOADING(false));
+        storeData("user", JSON.stringify(res.data));
         dispatch(SIGN_UP_SUCCESS(res.data));
       } else {
         dispatch(SET_LOADING(false));
         showMessage({
-          message: res.error || "Can't sigh up",
+          message: "Can't sigh up",
           type: "danger",
         });
       }
     } catch (error) {
       dispatch(SET_LOADING(false));
       showMessage({
-        message: error || "Can't sigh up: Error",
+        message:  "Can't sigh up: Error",
+        message:  "Can't sigh up: Error",
         type: "danger",
       });
     }
@@ -106,18 +109,18 @@ export const signUp = (entries) => {
   };
 };
 
-export const restoreSession = (user) => {
+export const restoreSession = (token) => {
   return async (dispatch) => {
     dispatch(SET_LOADING(true));
     try {
-      const res = await api.restoreSession(user.token);
+      const res = await api.restoreSession(token);
       console.log(res)
       if (res.ok) {
         dispatch(LOGIN_SUCCESS(res.data));
         dispatch(SET_LOADING(false));
       } else {
         dispatch(SET_LOADING(false));
-        removeData("user");
+        // removeData("user");
         showMessage({
           message: res.error,
           type: "danger",
@@ -126,7 +129,7 @@ export const restoreSession = (user) => {
     } catch (error) {
     
       dispatch(SET_LOADING(false));
-      removeData("user");
+      // removeData("user");
       showMessage({
         message: "Er: can't restore session",
         type: "danger",

@@ -27,7 +27,7 @@ const Navigator = ({ getFamilyAction, restoreSessionAction }) => {
       const userData = await getData("user");
 
       if (userData) {
-        restoreSessionAction(JSON.parse(userData));
+        restoreSessionAction(JSON.parse(userData).accessToken);
       }
     };
 
@@ -46,7 +46,7 @@ const Navigator = ({ getFamilyAction, restoreSessionAction }) => {
           }}
         >
           <MainStack.Screen
-            name="MainScreens"
+            name="MainStack"
             component={MainNavigator}
             // initialParams={{...props}}
           />
@@ -58,7 +58,7 @@ const Navigator = ({ getFamilyAction, restoreSessionAction }) => {
           }}
         >
           <AuthStack.Screen
-            name="AuthScreen"
+            name="AuthStack"
             component={AuthNavigator}
             // initialParams={{...props}}
           />

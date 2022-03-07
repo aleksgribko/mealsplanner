@@ -26,7 +26,7 @@ export default {
   textMain: { fontSize: 16, textAlign: "center", paddingTop: 10 },
   buttonStart: { backgroundColor: "#cd0000", padding: 20, borderRadius: 5 },
   buttonStartText: { fontSize: 20, color: "#fff" },
-  wrap_main: { flex: 2 },
+  wrap_main: { flex: 3 },
   divider: {
     width: 100,
     borderTopColor: "whitesmoke",
